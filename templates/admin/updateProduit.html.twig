@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+   {{ form_start(form) }}
+   <label for="">Nom du produit</label>
+   {{ form_row(form.title) }}
+   <label for="">Prix</label>
+   {{ form_row(form.price) }}
+   <label for="">Description</label>
+   {{ form_row(form.description) }}
+   {{ form_row(form.categorie) }}
+   <label for="">Photo</label>
+   {{ form_row(form.updatePicture, { 'attr': { "onChange": "loadFile(event)" } }) }}
+   <div class="row justify-content-between">
+      <div class="col-md-6 text-center">
+         <label for=""><h3>Photo actuelle</h3></label>
+         <img src="{{ asset('upload/') }}{{ produit.picture }}" alt=""></div>
+      <div class="col-md-6 text-center">
+         <label for=""><h3>Photo modifiée</h3></label>
+         <img id="image" alt="">
+      </div>
+
+   </div>
+
+   {{ form_row(form.Valider) }}
+
+
+   {{ form_end(form) }}
+
+   <script>
+
+      var loadFile = function (event) {
+         var image = document.getElementById('image');
+
+         image.src = URL.createObjectURL(event.target.files[0]);
+      };
+
+   </script>
+{% endblock %}
+
+{% block TitrePage %}
+   Modification du produit
+{% endblock %}
+

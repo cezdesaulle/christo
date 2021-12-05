@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+
+    {% block TitrePage %}
+        Panel des produits
+    {% endblock %}
+{% block body %}
+    {% for message in app.flashes('success') %}
+        <div class="row mt-3 justify-content-center">
+            <div class="alert alert-success col-md-6 text-center">
+                {{ message }}
+            </div>
+        </div>
+
+    {% endfor %}
+
+    {% for message in app.flashes('error') %}
+        <div class="row mt-3 justify-content-center">
+            <div class="alert alert-danger col-md-6 text-center">
+                {{ message }}
+            </div>
+        </div>
+
+    {% endfor %}
+
+    <a href="{{ path('addProduit') }}" class="btn btn-success">Ajouter</a>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Description</th>
+            <th scope="col">Catégorie</th>
+            <th scope="col">Prix</th>
+            <th scope="col">Photo</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for produit in produits %}
+        <tr>
+            <th scope="row">{{ produit.id }}</th>
+            <td>{{ produit.title }}</td>
+            <td>{{ produit.description }}</td>
+            <td>{{ produit.categorie.nom }}</td>
+            <td>{{ produit.price }} €</td>
+            <td><img src="{{ asset('upload/') }}{{ produit.picture }}" width="40" height="40" alt=""></td>
+            <td>
+                <a href="{{ path('updateProduit', { 'id': produit.id }) }}" class="btn btn-primary">Modifier</a>
+                <a onclick="confirm('Etes vous sûr de vouloir suoorimer ce produit')" href="{{ path('deleteProduit', { 'id': produit.id }) }}" class="btn btn-danger">Supprimer</a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}
